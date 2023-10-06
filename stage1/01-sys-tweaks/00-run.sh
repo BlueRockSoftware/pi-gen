@@ -7,11 +7,11 @@ wget https://raw.githubusercontent.com/BlueRockSoftware/rpi-kernel-modules/main/
 tar -xf modules-rpi-6.1.21-interludeaudio.tar.gz 
 sudo rm -rf modules-rpi-6.1.21-interludeaudio.tar.gz 
 sudo cp modules-rpi-6.1.21-interludeaudio/lib/modules/6.1.21+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko ${ROOTFS_DIR}/lib/modules/6.1.21+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko
-#sudo rm ${ROOTFS_DIR}/lib/modules/6.1.21+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko.xz
+sudo rm ${ROOTFS_DIR}/lib/modules/6.1.21+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko.xz
 sudo cp modules-rpi-6.1.21-interludeaudio/lib/modules/6.1.21-v7+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko ${ROOTFS_DIR}/lib/modules/6.1.21-v7+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko
-#sudo rm ${ROOTFS_DIR}/lib/modules/6.1.21-v7+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko.xz
+sudo rm ${ROOTFS_DIR}/lib/modules/6.1.21-v7+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko.xz
 sudo cp modules-rpi-6.1.21-interludeaudio/lib/modules/6.1.21-v7l+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko ${ROOTFS_DIR}/lib/modules/6.1.21-v7l+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko
-#sudo rm ${ROOTFS_DIR}/lib/modules/6.1.21-v7l+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko.xz
+sudo rm ${ROOTFS_DIR}/lib/modules/6.1.21-v7l+/kernel/sound/soc/bcm/snd-soc-rpi-wm8804-soundcard.ko.xz
 sudo cp modules-rpi-6.1.21-interludeaudio/boot/overlays/interludeaudio-analog.dtbo ${ROOTFS_DIR}/boot/overlays/
 sudo cp modules-rpi-6.1.21-interludeaudio/boot/overlays/interludeaudio-digital.dtbo ${ROOTFS_DIR}/boot/overlays/
 sudo rm -rf modules-rpi-6.1.21-interludeaudio
