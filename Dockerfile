@@ -9,6 +9,7 @@ RUN apt-get -y update && \
         quilt coreutils qemu-user-static debootstrap zerofree zip dosfstools \
         libarchive-tools libcap2-bin rsync grep udev xz-utils curl xxd file kmod bc\
         binfmt-support ca-certificates qemu-utils kpartx fdisk gpg pigz\
+        build-essential flex bison gcc-arm-linux-gnueabihf libssl-dev\
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /pi-gen/
