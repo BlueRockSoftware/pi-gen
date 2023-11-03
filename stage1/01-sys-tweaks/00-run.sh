@@ -7,6 +7,7 @@ install -v -m 644 files/fstab "${ROOTFS_DIR}/etc/fstab"
 git clone https://github.com/BlueRockSoftware/rpilinux.git
 
 cd rpilinux
+: '
 echo "!!!  Build RPi0 kernel and modules  !!!"
 KERNEL=kernel
 make -j 16 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcmrpi_defconfig
@@ -43,6 +44,7 @@ cp arch/arm/boot/dts/overlays/README ${ROOTFS_DIR}/boot/overlays
 
 echo "!!!  RPi4 build done  !!!"
 echo "-------------------------"
+'
 
 echo "!!!  Build 64-bit kernel and modules  !!!"
 KERNEL=kernel8
