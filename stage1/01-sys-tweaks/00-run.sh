@@ -11,7 +11,7 @@ echo "!!!  Build RPi0 kernel and modules  !!!"
 KERNEL=kernel
 make -j 16 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcmrpi_defconfig
 make -j 16 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
-env PATH=$PATH make ARCH=arm64 CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=${ROOTFS_DIR}/ modules_install
+env PATH=$PATH make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=${ROOTFS_DIR}/ modules_install
 cp arch/arm/boot/zImage ${ROOTFS_DIR}/boot/$KERNEL.img
 cp arch/arm/boot/dts/overlays/*.dtb* ${ROOTFS_DIR}/boot/overlays
 cp arch/arm/boot/dts/overlays/README ${ROOTFS_DIR}/boot/overlays
@@ -23,7 +23,7 @@ echo "!!!  Build RPi3 kernel and modules  !!!"
 KERNEL=kernel7
 make -j 24 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2709_defconfig
 make -j 24 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
-env PATH=$PATH make ARCH=arm64 CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=${ROOTFS_DIR}/ modules_install
+env PATH=$PATH make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=${ROOTFS_DIR}/ modules_install
 cp arch/arm/boot/zImage ${ROOTFS_DIR}/boot/$KERNEL.img
 cp arch/arm/boot/dts/overlays/*.dtb* ${ROOTFS_DIR}/boot/overlays
 cp arch/arm/boot/dts/overlays/README ${ROOTFS_DIR}/boot/overlays
@@ -36,7 +36,7 @@ echo "!!!  Build RPi4 kernel and modules  !!!"
 KERNEL=kernel7l
 make -j 24 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2711_defconfig
 make -j 24 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
-env PATH=$PATH make ARCH=arm64 CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=${ROOTFS_DIR}/ modules_install
+env PATH=$PATH make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=${ROOTFS_DIR}/ modules_install
 cp arch/arm/boot/zImage ${ROOTFS_DIR}/boot/$KERNEL.img
 cp arch/arm/boot/dts/overlays/*.dtb* ${ROOTFS_DIR}/boot/overlays
 cp arch/arm/boot/dts/overlays/README ${ROOTFS_DIR}/boot/overlays
