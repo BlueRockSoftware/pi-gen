@@ -82,7 +82,7 @@ fi
 # Modify original build-options to allow config file to be mounted in the docker container
 BUILD_OPTS="$(echo "${BUILD_OPTS:-}" | sed -E 's@\-c\s?([^ ]+)@-c /config@')"
 
-${DOCKER} build --build-arg BASE_IMAGE=debian:bullseye -t pi-gen "${DIR}"
+${DOCKER} build --build-arg BASE_IMAGE=debian:bullseye --platform linux/amd64 -t pi-gen "${DIR}"
 
 if [ "${CONTAINER_EXISTS}" != "" ]; then
   DOCKER_CMDLINE_NAME="${CONTAINER_NAME}_cont"
@@ -136,6 +136,7 @@ time ${DOCKER} run \
   --name "${DOCKER_CMDLINE_NAME}" \
   --privileged \
   --cap-add=ALL \
+  --platform linux/amd64 \
   -v /dev:/dev \
   -v /lib/modules:/lib/modules \
   ${PIGEN_DOCKER_OPTS} \
