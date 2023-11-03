@@ -57,6 +57,8 @@ rm -rf ${ROOTFS_DIR}/lib/modules/6.1.21+
 rm -rf ${ROOTFS_DIR}/lib/modules/6.1.21-v7+
 rm -rf ${ROOTFS_DIR}/lib/modules/6.1.21-v7l+
 rm -rf ${ROOTFS_DIR}/lib/modules/6.1.21-v8+
+rm -rf ${ROOTFS_DIR}/lib/modules/6.1.0-rpi4-rpi-2712
+rm -rf ${ROOTFS_DIR}/lib/modules/6.1.0-rpi4-rpi-v8
 
 echo "!!! All builds completed !!!"
 
