@@ -1,3 +1,4 @@
 deb http://raspbian.raspberrypi.org/raspbian/ RELEASE main contrib non-free rpi
+# deb http://mirrors.gigenet.com/raspbian/raspbian/ RELEASE main contrib non-free rpi # Optional mirror if http://raspbian.raspberrypi.org/raspbian/ doesn't work
 # Uncomment line below then 'apt-get update' to enable 'apt-get source'
 #deb-src http://raspbian.raspberrypi.org/raspbian/ RELEASE main contrib non-free rpi
