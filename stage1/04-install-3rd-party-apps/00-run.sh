@@ -1,5 +1,10 @@
 #!/bin/bash -e
 
+if [ -d "${ROOTFS_DIR}/nqptp" ]; then
+    echo "Folder already exists. Exiting."
+    exit 0
+fi
+
 on_chroot << EOF
 #
 #  S H A I R P O R T
