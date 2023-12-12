@@ -1,0 +1,37 @@
+name: Manual Build and Upload Artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_upload:
+    runs-on: [self-hosted, linux]
+    timeout-minutes: 180 # 3 hours
+
+    steps:
+      - name: Use Secret as Environment Variable
+        run: echo "My secret value is --${{ secrets.ACCESS_TOKEN }}--"
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install --no-install-recommends \
+                git vim parted \
+                quilt coreutils qemu-user-static debootstrap zerofree zip dosfstools \
+                libarchive-tools libcap2-bin rsync grep udev xz-utils curl xxd file kmod bc\
+                binfmt-support ca-certificates qemu-utils kpartx fdisk gpg pigz\
+                build-essential flex bison gcc-arm-linux-gnueabihf gcc-aarch64-linux-gnu libssl-dev\
+                jq unzip
+
+      - name: Run build script
+        run: |
+          sudo -E ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }} ./build.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: deploy
