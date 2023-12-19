@@ -1,0 +1,27 @@
+#!/bin/bash
+
+pcm_info_file="/proc/asound/card0/pcm0p/info"
+digital_id="Interlude Audio Digital HiFi wm8804-spdif-0"
+analog_id="bcm2835-i2s-cs4271-hifi cs4271-hifi-0"
+
+if [ -e "$pcm_info_file" ]; then
+    id_line=$(grep "^id:" "$pcm_info_file" | cut -d ' ' -f 2-)
+
+    if [ -n "$id_line" ]; then
+        if [ "$id_line" == "$digital_id" ]; then
+            echo "Loading digital conf file" >> /tmp/hat_log.txt
+            ln -sfv /etc/pulse/daemon-brs-digital.conf /etc/pulse/daemon.conf
+            systemctl restart pulseaudio
+        elif [ "$id_line" == "$analog_id" ]; then
+            echo "Loading analog conf file" >> /tmp/hat_log.txt
+            ln -sfv /etc/pulse/daemon-brs-analog.conf /etc/pulse/daemon.conf
+            systemctl restart pulseaudio
+        else
+            echo "No match found for the 'id' line." >> /tmp/hat_log.txt
+        fi
+    else
+        echo "Error: 'id' line not found in $pcm_info_file." >> /tmp/hat_log.txt
+    fi
+else
+    echo "Error: $pcm_info_file does not exist." >> /tmp/hat_log.txt
+fi

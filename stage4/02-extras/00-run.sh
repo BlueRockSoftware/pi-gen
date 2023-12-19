@@ -6,5 +6,4 @@ install -v -o 1000 -g 1000 -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.local/shar
 install -v -o 1000 -g 1000 -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.local/share/applications"
 install -v -o 1000 -g 1000 -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.local/share/desktop-directories"
 
-#Set pulseaudio default sample rate to 48000
-sed -i 's/; default-sample-rate = 44100/default-sample-rate = 48000/' ${ROOTFS_DIR}/etc/pulse/daemon.conf
+cp "$ROOTFS_DIR/etc/pulse/daemon.conf" "$ROOTFS_DIR/etc/pulse/daemon.conf.orig"

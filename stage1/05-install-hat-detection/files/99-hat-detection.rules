@@ -1,0 +1,1 @@
+SUBSYSTEM=="sound", ACTION=="add", RUN+="/usr/local/sbin/hat-detection"
