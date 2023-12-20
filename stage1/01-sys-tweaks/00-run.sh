@@ -8,62 +8,39 @@ rm -rf ${ROOTFS_DIR}/lib/modules/*
 
 # Download and install kernel artifacts
 ####################
-REPO_OWNER="BlueRockSoftware"
-REPO_NAME="rpilinux"
-BRANCH_NAME="rpi-6.1.21"
-WORKFLOW="kernel-build.yml"
+repo_owner="InterludeAudio"
+repo_name="rpilinux"
 
-# ACCESS_TOKEN="" # Set via environment variable
+# Fetch the latest release tag using GitHub API
+release_tag=$(curl -s "https://api.github.com/repos/$repo_owner/$repo_name/releases/latest" | jq -r .tag_name)
 
-# GitHub API endpoint to get the latest workflow run on the specified branch
-WORKFLOW_RUN_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/kernel-build.yml/runs?branch=${BRANCH_NAME}"
-echo "WORKFLOW_RUN_URL: ${WORKFLOW_RUN_URL}"
+# Check if release tag is empty
+if [ -z "$release_tag" ]; then
+    echo "Failed to fetch the latest release tag. Please check your repository details."
+    exit 1
+fi
 
-# Get the latest workflow run ID
-WORKFLOW_RUN_ID=$(curl -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" ${WORKFLOW_RUN_URL} | jq -r '.workflow_runs[0].id')
-echo "WORKFLOW_RUN_ID: ${WORKFLOW_RUN_ID}"
+# Define the download URL pattern for GitHub releases
+download_url="https://github.com/$repo_owner/$repo_name/releases/download/$release_tag"
 
-# GitHub API endpoint to get the artifacts for the latest workflow run
-ARTIFACTS_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/runs/${WORKFLOW_RUN_ID}/artifacts"
-echo "ARTIFACTS_URL: ${ARTIFACTS_URL}"
+# Define the assets you want to download (replace with actual asset names)
+assets=("bcmrpi_build" "bcm2709_build" "bcm2711_build" "bcm2711_arm64_build")
 
-# Save the current IFS value
-OLD_IFS=$IFS
-# Set IFS to newline
-IFS=$'\n'
-# Tokenize the input string into an array
-artifacts=($(curl -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" ${ARTIFACTS_URL} | jq -r '.artifacts[] | "\(.id) \(.name)"'))
-# Restore the original IFS value
-IFS=$OLD_IFS
+# Function to download a file
+download_and_untar_file() {
+    local file_name="$1"
+    local url="$download_url/$file_name"
+    echo "Downloading $file_name..."
 
-# Specify the list of artifact names to download
-ARTIFACTS_TO_DOWNLOAD=("bcmrpi_build" "bcm2709_build" "bcm2711_build" "bcm2711_arm64_build")
+    curl -LJO "$url"
+    tar -xvf ${file_name}
+}
 
-# Loop through each artifact
-for artifact in "${artifacts[@]}"; do
-  # Extract artifact ID and name
-  ARTIFACT_ID=$(echo $artifact | cut -d' ' -f1)
-  ARTIFACT_NAME=$(echo $artifact | cut -d' ' -f2-)
-
-  # Check if the artifact is in the list of artifacts to download
-  if [[ " ${ARTIFACTS_TO_DOWNLOAD[@]} " =~ " ${ARTIFACT_NAME} " ]]; then
-    echo ""
-    echo "ARTIFACT_ID: ${ARTIFACT_ID}"
-    echo "ARTIFACT_NAME: ${ARTIFACT_NAME}"
-
-    # GitHub API endpoint to download the artifact
-    DOWNLOAD_URL="https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/artifacts/${ARTIFACT_ID}/zip"
-
-    # Download the artifact
-    curl -L -o ${ARTIFACT_NAME}.zip -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" ${DOWNLOAD_URL}
-
-	# Extract the artifact
-    unzip -o ${ARTIFACT_NAME}.zip
-    tar -xvf ${ARTIFACT_NAME}.tar
-
-    echo "Downloaded artifact: ${ARTIFACT_NAME}.zip"
-  fi
+# Download each specified asset
+for asset in "${assets[@]}"; do
+    download_and_untar_file "$asset"
 done
+echo "Downloads completed!"
 
 echo "Installing kernel artifacts..."
 mv boot/*.dtb ${ROOTFS_DIR}/boot/.
