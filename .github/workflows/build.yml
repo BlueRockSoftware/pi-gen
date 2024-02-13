@@ -9,6 +9,10 @@ jobs:
     timeout-minutes: 300 # 5 hours
 
     steps:
+      - name: Remove all files and folders in working directory
+        run: |
+          sudo rm -rfv *
+
       - name: Checkout code
         uses: actions/checkout@v2
 
