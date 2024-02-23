@@ -45,14 +45,15 @@ sudo sed -i "s\#LIBRESPOT_DEVICE=\"default\"\LIBRESPOT_DEVICE=\"pulse\"\g" /etc/
 # set Raspotify to use system wide PulseAudio
 sudo sed -i '/\[Service\]/a\User=pulse' /lib/systemd/system/raspotify.service
 
+sudo systemctl daemon-reload
 sudo systemctl restart raspotify
 
 
 #
 #  R O O N  B R I D G E
-curl -O https://download.roonlabs.net/builds/roonbridge-installer-linuxarmv7hf.sh
-chmod +x roonbridge-installer-linuxarmv7hf.sh
-yes Y | sudo ./roonbridge-installer-linuxarmv7hf.sh
+curl -O https://download.roonlabs.net/builds/roonbridge-installer-linuxarmv8.sh
+chmod +x roonbridge-installer-linuxarmv8.sh
+yes Y | sudo ./roonbridge-installer-linuxarmv8.sh
 
 
 sudo touch "$marker_file"

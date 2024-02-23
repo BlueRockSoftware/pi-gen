@@ -23,8 +23,8 @@ fi
 # Define the download URL pattern for GitHub releases
 download_url="https://github.com/$repo_owner/$repo_name/releases/download/$release_tag"
 
-# Define the assets you want to download (replace with actual asset names)
-assets=("bcmrpi_build" "bcm2709_build" "bcm2711_build" "bcm2711_arm64_build")
+# Define the assets you want to download
+assets=("bcm2711_build" "bcm2712_build")
 
 # Function to download a file
 download_and_untar_file() {
@@ -43,9 +43,9 @@ done
 echo "Downloads completed!"
 
 echo "Installing kernel artifacts..."
-mv boot/*.dtb ${ROOTFS_DIR}/boot/.
-mv boot/*.img ${ROOTFS_DIR}/boot/.
-mv boot/overlays/* ${ROOTFS_DIR}/boot/overlays/.
+mv boot/firmware/*.dtb ${ROOTFS_DIR}/boot/firmware/.
+mv boot/firmware/*.img ${ROOTFS_DIR}/boot/firmware/.
+mv boot/firmware/overlays/* ${ROOTFS_DIR}/boot/firmware/overlays/.
 mv lib/modules/* ${ROOTFS_DIR}/lib/modules/.
 ####################
 
