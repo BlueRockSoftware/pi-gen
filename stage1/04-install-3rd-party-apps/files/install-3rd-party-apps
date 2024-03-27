@@ -7,6 +7,10 @@ if [ -e "$marker_file" ]; then
     exit 0
 fi
 
+#
+#  U P D A T E  C A  C E R T I F I C A T E S
+sudo apt-get update
+sudo apt-get install --reinstall ca-certificates
 
 #
 #  S H A I R P O R T
