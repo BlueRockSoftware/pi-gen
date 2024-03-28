@@ -6,7 +6,7 @@ on:
 jobs:
   build_and_upload:
     runs-on: [self-hosted, linux]
-    timeout-minutes: 300 # 5 hours
+    timeout-minutes: 600 # 10 hours
 
     steps:
       - name: Remove all files and folders in working directory
