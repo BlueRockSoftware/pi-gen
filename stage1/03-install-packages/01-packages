@@ -3,3 +3,4 @@ libpopt-dev libconfig-dev libasound2-dev avahi-daemon libavahi-client-dev libssl
 libplist-dev libsodium-dev libavutil-dev libavcodec-dev libavformat-dev uuid-dev libgcrypt-dev xxd
 libpulse-dev pulseaudio
 curl sed
+python3-smbus python3-pil
