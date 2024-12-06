@@ -32,19 +32,19 @@ jobs:
           sudo ./build.sh
 
       - name: Upload Raspbian-lite image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Raspbian-lite
           path: deploy/*Raspbian-lite.zip
 
       - name: Upload Raspbian image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Raspbian
           path: deploy/*Raspbian.zip
 
       - name: Upload Raspbian-full image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Raspbian-full
           path: deploy/*Raspbian-full.zip
